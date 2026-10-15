@@ -4,17 +4,22 @@ namespace Sharp.Core
 {
     public class SharpBase : MonoBehaviour
     {
-        protected void Awake()
+        protected virtual void Awake()
         {
             // Implement common base behaviour here //
         }
 
-        private void OnEnable()
+        protected virtual void Start()
         {
             // Implement common base behaviour here //
         }
 
-        protected void OnDestroy()
+        protected virtual void OnEnable()
+        {
+            // Implement common base behaviour here //
+        }
+
+        protected virtual void OnDestroy()
         {
             // Implement common base behaviour here //
         }

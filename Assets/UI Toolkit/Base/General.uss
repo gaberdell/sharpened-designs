@@ -1,0 +1,66 @@
+:root {
+    --sharp-metrics-border-radius: 3px;
+    --sharp-metrics-tab-contents-margin: 16px;
+    --sharp-metrics-window-margin: 2px;
+    --sharp-metrics-highlight-width: 3px;
+    --sharp-metrics-thin-width: 1px;
+    --sharp-colors-highlight: rgb(44, 93, 135);
+    --sharp-colors-default-text: #C4C4C4;
+    --sharp-colors-default-text-focus: #81B4FF;
+    --sharp-colors-window-background: rgb(56, 56, 56);
+    --sharp-colors-window-border: rgb(36, 36, 36);
+    --sharp-colors-window-toolbar: rgb(24, 24, 24);
+    --sharp-colors-tab-background: rgb(53, 53, 53);
+    --sharp-colors-tab-background-checked: rgb(60, 60, 60);
+    --sharp-colors-default-background: rgb(40, 40, 40);
+    --sharp-colors-default-border: rgb(35, 35, 35);
+    --sharp-colors-light-background: rgb(65, 65, 65);
+}
+
+.unity-label {
+    color: var(--sharp-colors-default-text);
+}
+
+.unity-label:focus {
+    color: var(--sharp-colors-default-text-focus);
+}
+
+.unity-tab__header {
+    border-top-left-radius: var(--sharp-metrics-border-radius);
+    border-top-right-radius: var(--sharp-metrics-border-radius);
+    border-top-width: var(--sharp-metrics-highlight-width);
+    border-color: transparent;
+    background-color: var(--sharp-colors-tab-background);
+}
+
+.unity-tab__header:checked {
+    border-color: var(--sharp-colors-highlight);
+    background-color: var(--sharp-colors-tab-background-checked);
+}
+
+.unity-tab__header-underline {
+    height: 0;
+}
+
+.unity-tab-view__header-container {
+    border-top-left-radius: var(--sharp-metrics-border-radius);
+    border-top-right-radius: var(--sharp-metrics-border-radius);
+    background-color: var(--sharp-colors-default-background);
+    flex-grow: 1;
+}
+
+.sharp-fit-to-container {
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.sharp-window {
+    border-radius: var(--sharp-metrics-border-radius);
+    background-color: var(--sharp-colors-window-background);
+}
+
+.sharp-tab-contents {
+    flex-shrink: 0;
+    padding: var(--sharp-metrics-tab-contents-margin);
+    background-color: var(--sharp-colors-window-background);
+}
