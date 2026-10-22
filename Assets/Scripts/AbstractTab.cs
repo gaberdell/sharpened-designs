@@ -7,7 +7,7 @@ namespace Sharp
     /// <summary>
     /// The base class to be associated with all tabs.
     /// </summary>
-    public abstract class AbstractTab : SharpBase
+    public abstract class AbstractTab : BaseSharpBehaviour
     {
         [Header("UXML References")]
         [SerializeField] private VisualTreeAsset _content_uxml;
@@ -32,6 +32,7 @@ namespace Sharp
         public VisualElement InstantiateVisualElement()
         {
             root_ui_element = _content_uxml.Instantiate();
+            root_ui_element.dataSource = this;
             OnInstantiateVisualElement();
             return root_ui_element;
         }

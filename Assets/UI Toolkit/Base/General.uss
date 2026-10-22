@@ -17,6 +17,11 @@
     --sharp-colors-light-background: rgb(65, 65, 65);
 }
 
+TemplateContainer {
+    flex-grow: 1;
+    max-height: 100%;
+}
+
 .unity-label {
     color: var(--sharp-colors-default-text);
 }
@@ -38,6 +43,14 @@
     background-color: var(--sharp-colors-tab-background-checked);
 }
 
+.unity-tab-view__content-container {
+    flex-grow: 1;
+}
+
+.unity-tab__content-container {
+    flex-grow: 1;
+}
+
 .unity-tab__header-underline {
     height: 0;
 }
@@ -49,18 +62,12 @@
     flex-grow: 1;
 }
 
-.sharp-fit-to-container {
-    flex-grow: 1;
-    flex-shrink: 0;
-}
-
 .sharp-window {
     border-radius: var(--sharp-metrics-border-radius);
     background-color: var(--sharp-colors-window-background);
 }
 
 .sharp-tab-contents {
-    flex-shrink: 0;
     padding: var(--sharp-metrics-tab-contents-margin);
     background-color: var(--sharp-colors-window-background);
 }

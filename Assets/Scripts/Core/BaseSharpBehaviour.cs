@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Sharp.Core
 {
-    public class SharpBase : MonoBehaviour
+    public class BaseSharpBehaviour : MonoBehaviour
     {
         protected virtual void Awake()
         {

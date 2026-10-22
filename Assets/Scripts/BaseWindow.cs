@@ -8,7 +8,7 @@ namespace Sharp
     /// The base class to be associated with all windows.
     /// </summary>
     [RequireComponent(typeof(UIDocument))]
-    public class BaseWindow : SharpBase
+    public class BaseWindow : BaseSharpBehaviour
     {
         [Header("UXML References")]
         [SerializeField] private VisualTreeAsset _window_uxml;
