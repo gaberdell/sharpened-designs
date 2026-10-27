@@ -1,0 +1,25 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Base/General.uss?fileID=7433441132597879392&amp;guid=c87551fefefdca4468929986027a873e&amp;type=3#General"/>
+    <ui:VisualElement name="Base" style="flex-grow: 1;">
+        <ui:TextField label="" placeholder-text="Value" readonly="true" name="String" enabled="false"/>
+        <ui:VisualElement name="UObject" class="hidden-by-default" style="flex-grow: 0; flex-direction: row; flex-shrink: 1;">
+            <ui:Image source="project://database/Assets/Icons/Object-Prototype.svg?fileID=7388822144124034973&amp;guid=344346428fe60284cb20be76526e494d&amp;type=3#Object-Prototype" scale-mode="ScaleToFit" uv="0,0,1,1" enabled="true" style="rotate: 0; position: relative; flex-grow: 0; width: 16px; height: 16px; align-self: center; margin-left: 4px;"/>
+            <ui:TextField label="" placeholder-text="Value" enabled="false" name="UObject-Name" style="flex-grow: 1;"/>
+        </ui:VisualElement>
+        <ui:DropdownField label="" name="Dropdown" enabled="false" class="hidden-by-default"/>
+        <ui:Toggle label="" name="Bool" enabled="false" class="hidden-by-default"/>
+        <ui:IntegerField label="" value="42" name="Int" enabled="false" class="hidden-by-default"/>
+        <ui:LongField label="" value="42" name="Long" enabled="false" class="hidden-by-default"/>
+        <ui:UnsignedIntegerField label="" value="42" name="UInt" enabled="false" class="hidden-by-default"/>
+        <ui:UnsignedLongField label="" value="42" name="ULong" enabled="false" class="hidden-by-default"/>
+        <ui:FloatField label="" value="42.2" name="Float" enabled="false" class="hidden-by-default"/>
+        <ui:DoubleField label="" value="42.2" name="Double" enabled="false" class="hidden-by-default"/>
+        <ui:Vector2Field label="" name="Vector2" enabled="false" class="force-row hidden-by-default"/>
+        <ui:Vector3Field label="" name="Vector3" enabled="false" class="force-row hidden-by-default"/>
+        <ui:Vector4Field label="" name="Vector4" enabled="false" class="force-row hidden-by-default"/>
+        <ui:Vector2IntField label="" name="Vector2Int" enabled="false" class="force-row hidden-by-default"/>
+        <ui:Vector3IntField label="" name="Vector3Int" enabled="false" class="force-row hidden-by-default"/>
+        <ui:ListView enabled="false" name="List" allow-add="false" allow-remove="false" show-bound-collection-size="true" virtualization-method="DynamicHeight" class="hidden-by-default"/>
+        <ui:Label text="Viewing a value of this type is not supported." name="Unsupported" class="hidden-by-default"/>
+    </ui:VisualElement>
+</ui:UXML>

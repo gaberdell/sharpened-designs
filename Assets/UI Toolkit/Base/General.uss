@@ -5,8 +5,8 @@
     --sharp-metrics-highlight-width: 3px;
     --sharp-metrics-thin-width: 1px;
     --sharp-colors-highlight: rgb(44, 93, 135);
-    --sharp-colors-default-text: #C4C4C4;
-    --sharp-colors-default-text-focus: #81B4FF;
+    --sharp-colors-default-text: rgb(196, 196, 196);
+    --sharp-colors-default-text-focus: rgb(129, 180, 255);
     --sharp-colors-window-background: rgb(56, 56, 56);
     --sharp-colors-window-border: rgb(36, 36, 36);
     --sharp-colors-window-toolbar: rgb(24, 24, 24);
@@ -70,4 +70,26 @@ TemplateContainer {
 .sharp-tab-contents {
     padding: var(--sharp-metrics-tab-contents-margin);
     background-color: var(--sharp-colors-window-background);
+}
+
+.force-row .unity-composite-field__input {
+    flex-direction: row;
+}
+
+.force-row .unity-base-field__label {
+    flex-shrink: 1;
+    flex-grow: 0;
+    width: auto;
+    height: auto;
+    min-width: auto;
+    max-width: none;
+}
+
+.force-row .unity-composite-field__field {
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.hidden-by-default {
+    display: none;
 }

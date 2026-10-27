@@ -28,4 +28,12 @@ namespace Sharp.Testing
             }
         }
     }
+
+    public class GenericValueTester : AbstractTab
+    {
+        protected override void OnInstantiateVisualElement()
+        {
+            // TODO: test generic value visual element
+        }
+    }
 }
