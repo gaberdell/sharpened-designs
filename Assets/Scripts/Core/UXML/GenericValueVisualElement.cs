@@ -81,10 +81,18 @@ namespace Sharp.Core.UXML
                 {
                     if (element.Supports(value_type))
                     {
-                        element.SetType(value_type);
+                        element.InitializeForType(value_type);
                         _active_element = element;
 
                         break;
+                    }
+                }
+
+                foreach (var element in visual_element._contained_typed_elements)
+                {
+                    if(element != _active_element)
+                    {
+                        element.visual_element.style.display = DisplayStyle.None;
                     }
                 }
 

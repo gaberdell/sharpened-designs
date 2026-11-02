@@ -9,10 +9,11 @@ namespace Sharp.Core.UXML.TypedElements
         private readonly PropertyInfo _value_property;
         private readonly Type _value_type;
 
-        public ReflectiveTypedElement(VisualElement inner_element)
+        public ReflectiveTypedElement(VisualElement inner_element, string property_name = "value")
             : base(inner_element)
         {
-            _value_property = inner_element.GetType().GetProperty("value", BindingFlags.Instance);
+            _value_property = inner_element.GetType().GetProperty(property_name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic) 
+                ?? throw new InvalidOperationException($"Type {inner_element.GetType()} does not contain a property '{property_name}'");
             _value_type = _value_property.PropertyType;
         }
 

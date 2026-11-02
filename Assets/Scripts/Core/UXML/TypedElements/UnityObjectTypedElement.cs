@@ -19,13 +19,17 @@ namespace Sharp.Core.UXML.TypedElements
         {
             var result = new StringBuilder();
 
-            while(game_object)
+            var object_iter = game_object;
+            while(object_iter)
             {
-                result.Insert(0, $"/{game_object.name}");
-                game_object = game_object.transform.parent.gameObject;
+                result.Insert(0, $"/{object_iter.name}");
+                var parent_transform = object_iter.transform.parent;
+
+                object_iter = parent_transform ? parent_transform.gameObject : null;
             }
 
             result.Insert(0, $"Scene {game_object.scene.name}");
+            result.Insert(0, $"{game_object.name}: ");
 
             return result.ToString();
         }
