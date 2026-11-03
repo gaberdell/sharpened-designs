@@ -3,9 +3,8 @@ using UnityEngine;
 namespace Sharp
 {
     /// <summary>
-    /// Implementation for a singular checkpoint
-    /// Stores all necessary information and communicates
-    /// with CheckpointManager
+    /// Implementation for a singular checkpoint.
+    /// Stores all necessary information and communicates with CheckpointManager.
     /// </summary>
     public class Checkpoint : MonoBehaviour
     {
@@ -38,7 +37,8 @@ namespace Sharp
         public Quaternion rotation => transform.rotation;
 
         /// <summary>
-        /// Setting the label and description upon creation
+        /// Used to update the label and description if dynamially creating checkpoints at runtime.
+        /// If creating a checkpoint in the editor, use the inspector to set these values.
         /// </summary>
         public void Init(string label, string description)
         {

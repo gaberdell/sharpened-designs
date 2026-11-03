@@ -5,9 +5,8 @@ using UnityEngine;
 namespace Sharp
 {
     /// <summary>
-    /// This class stores the data related to checkpoint objects in scene. 
-    /// Uses a ListView element to manage the creation/enabling and 
-    /// destruction/disabling of checkpoint objects.
+    /// This class stores the data related to checkpoint objects in scene.
+    /// 
     /// Handles communication between individual checkpoint objects 
     /// and checkpoint tab ui.
     /// </summary>
@@ -39,6 +38,7 @@ namespace Sharp
         public static void Register(Checkpoint c)
         {
             if (_checkpoints.Contains(c)) return;
+
             _checkpoints.Add(c);
             changed?.Invoke();
         }
@@ -48,12 +48,16 @@ namespace Sharp
         /// </summary>
         public static void Unregister(Checkpoint c)
         {
-            if (_checkpoints.Remove(c)) changed?.Invoke();
+            if (_checkpoints.Remove(c))
+            {
+                changed?.Invoke();
+            }
         }
 
         /// <summary>
         /// The function to clear out the list of checkpoints
         /// </summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void Reset()
         {
             _checkpoints.Clear();
