@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sharp.Tabs.Console.ConsoleTab
   _content_uxml: {fileID: 9197481963319205126, guid: c2b342d1b152b6e43b11655c8e3ed7bb, type: 3}
   _title: Console
+  entry_settings: {fileID: 11400000, guid: 51e90d84783d66543be476faed15d638, type: 2}
 --- !u!1 &466106025
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1927322751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,7 +575,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927322750}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99bb1f71b2e522a4797bf1a057f91428, type: 3}
   m_Name: 

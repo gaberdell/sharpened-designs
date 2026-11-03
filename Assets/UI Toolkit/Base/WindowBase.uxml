@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/Base/General.uss?fileID=7433441132597879392&amp;guid=c87551fefefdca4468929986027a873e&amp;type=3#General"/>
     <ui:VisualElement style="flex-shrink: 0; flex-grow: 0; width: 100%; height: 100%;">
         <ui:VisualElement name="Window" class="sharp-window" style="background-color: rgb(56, 56, 56); width: 40%; height: 75%; flex-direction: row; align-self: auto; overflow: hidden; flex-shrink: 1; flex-grow: 0; max-height: 75%;">
-            <ui:TabView reorderable="true" class="sharp-fit-to-container" style="flex-grow: 0; flex-shrink: 1;"/>
+            <ui:TabView class="sharp-fit-to-container" style="flex-shrink: 1; width: 100%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Properties;
 using UnityEngine;
@@ -11,6 +12,16 @@ namespace Sharp.Tabs.Console
     /// </summary>
     public class ConsoleTab : AbstractTab
     {
+        [Header("Console Settings")]
+        [SerializeField] private ConsoleEntrySettings entry_settings;
+
+        [CreateProperty] private bool show_notes = true;
+        [CreateProperty] private int note_count = 0;
+        [CreateProperty] private bool show_warnings = true;
+        [CreateProperty] private int warning_count = 0;
+        [CreateProperty] private bool show_errors = true;
+        [CreateProperty] private int error_count = 0;
+
         /// <summary>
         /// A reference to the list view that will render the entries.
         /// Populated on UI creation.
@@ -23,6 +34,51 @@ namespace Sharp.Tabs.Console
         /// evicting old events so that we don't balloon our memory usage, particularly in large scale games.
         /// </summary>
         private readonly List<LogEvent> _log_events = new();
+        private readonly List<LogEvent> _displayed_events = new();
+
+        private bool IsShowingLogType(LogType log_type)
+        {
+            return log_type switch
+            {
+                LogType.Log => show_notes,
+                LogType.Warning => show_warnings,
+                LogType.Exception or LogType.Error or LogType.Assert => show_errors,
+                _ => throw new InvalidOperationException()
+            };
+        }
+
+        private void RecomputeDisplayedEvents()
+        {
+            _displayed_events.Clear();
+
+            foreach(var log_event in _log_events)
+            {
+                if(IsShowingLogType(log_event.type))
+                {
+                    _displayed_events.Add(log_event);
+                }
+            }
+
+            _entries.Rebuild();
+        }
+
+        private void OnNoteToggleClick(ChangeEvent<bool> evt)
+        {
+            show_notes = evt.newValue;
+            RecomputeDisplayedEvents();
+        }
+
+        private void OnWarningToggleClick(ChangeEvent<bool> evt)
+        {
+            show_warnings = evt.newValue;
+            RecomputeDisplayedEvents();
+        }
+
+        private void OnErrorToggleClick(ChangeEvent<bool> evt)
+        {
+            show_errors = evt.newValue;
+            RecomputeDisplayedEvents();
+        }
 
         /// <summary>
         /// Callback used to add a log event to the list of all recorded log events.
@@ -36,7 +92,20 @@ namespace Sharp.Tabs.Console
                 type = type
             });
 
-            _entries.Rebuild();
+            if(type is LogType.Log)
+            {
+                note_count++;
+            }
+            else if(type is LogType.Warning)
+            {
+                warning_count++;
+            }
+            else if(type is LogType.Error or LogType.Exception or LogType.Assert)
+            {
+                error_count++;
+            }
+
+            RecomputeDisplayedEvents();
         }
 
         /// <summary>
@@ -47,12 +116,18 @@ namespace Sharp.Tabs.Console
         private void BindItem(VisualElement element, int index)
         {
             var console_element = element as ConsoleEntryElement;
-            var log_event = _log_events[index];
-
-            // TODO: handle finding an appropriate icon //
+            var log_event = _displayed_events[index];
 
             console_element.message.text = log_event.message;
             console_element.backtrace.text = log_event.backtrace;
+            console_element.icon.image = log_event.type switch
+            {
+                LogType.Log => entry_settings.icon_note,
+                LogType.Warning => entry_settings.icon_warning,
+                LogType.Assert or LogType.Exception or LogType.Error => entry_settings.icon_error,
+
+                _ => throw new InvalidOperationException()
+            };
         }
 
         protected override void OnInstantiateVisualElement()
@@ -64,7 +139,16 @@ namespace Sharp.Tabs.Console
             _entries.makeNoneElement = () => new VisualElement();
             _entries.makeItem = () => new ConsoleEntryElement();
             _entries.bindItem = BindItem;
-            _entries.itemsSource = _log_events;
+            _entries.itemsSource = _displayed_events;
+
+            var note_toggle = root_ui_element.Q<Toggle>("Note-Toggle");
+            note_toggle.RegisterValueChangedCallback(OnNoteToggleClick);
+
+            var warning_toggle = root_ui_element.Q<Toggle>("Warning-Toggle");
+            warning_toggle.RegisterValueChangedCallback(OnWarningToggleClick);
+
+            var error_toggle = root_ui_element.Q<Toggle>("Error-Toggle");
+            error_toggle.RegisterValueChangedCallback(OnErrorToggleClick);
         }
 
         protected override void OnEnable()

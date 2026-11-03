@@ -1,10 +1,10 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Base/General.uss?fileID=7433441132597879392&amp;guid=c87551fefefdca4468929986027a873e&amp;type=3#General"/>
-    <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row;">
-        <ui:Image name="icon"/>
-        <ui:VisualElement style="flex-grow: 1;">
-            <ui:Label text="Label" name="message"/>
-            <ui:Label text="Label" name="backtrace" style="font-size: 10px;"/>
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column;">
+        <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+            <ui:Image name="icon" source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2346436936791262179&amp;guid=406889a69ff6c5841b060e576dc4e2f5&amp;type=3#console.infoicon" style="width: 16px; height: 16px; align-self: center;"/>
+            <ui:Label text="Label" name="message" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
         </ui:VisualElement>
+        <ui:Label text="Label" name="backtrace" class="sharp-backtrace" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-font-style: normal; white-space: normal;"/>
     </ui:VisualElement>
 </ui:UXML>
