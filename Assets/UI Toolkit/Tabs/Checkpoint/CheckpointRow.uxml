@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="row" style="flex-grow: 1; flex-direction: row; align-items: center;">
+        <ui:Button text="Button" name="jump" style="width: 140px; margin-right: 8px;"/>
+        <ui:Label text="Label" name="description" style="flex-grow: 1;"/>
+    </ui:VisualElement>
+</ui:UXML>
