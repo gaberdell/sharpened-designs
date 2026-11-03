@@ -16,6 +16,7 @@ namespace Sharp
         private Camera FreecamCamera;
 
         private bool CameraEnabled = false;
+        private bool initializedFreecam = false;
         private Vector3 InputVector;
         private float CurrentSpeed;
 
@@ -86,9 +87,14 @@ namespace Sharp
                     FreecamCamera.enabled = true;
                     MainCamera.enabled = false;
 
-                    FreecamCamera.transform.SetPositionAndRotation(
-                        MainCamera.transform.position, MainCamera.transform.rotation
-                    );
+                    if (!initializedFreecam)
+                    {
+                        FreecamCamera.transform.SetPositionAndRotation(
+                            MainCamera.transform.position, MainCamera.transform.rotation
+                        );
+
+                        initializedFreecam = true;
+                    }
                 }
                 else
                 {
