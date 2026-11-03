@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Sharp
+namespace Sharp.Tabs.Checkpoint
 {
     /// <summary>
     /// This class stores the data related to checkpoint objects in scene.

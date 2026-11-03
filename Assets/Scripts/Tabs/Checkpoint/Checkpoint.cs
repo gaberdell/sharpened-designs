@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Sharp
+namespace Sharp.Tabs.Checkpoint
 {
     /// <summary>
     /// Implementation for a singular checkpoint.

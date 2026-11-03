@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Sharp
+namespace Sharp.Tabs.Checkpoint
 {
     /// <summary>
     /// Implementation of the 'Checkpoint' tab. 
