@@ -23,11 +23,6 @@ namespace Sharp.Tabs.Checkpoint
         /// and ability to jump to checkpoint
         /// </summary>
         [SerializeField] private VisualTreeAsset _row_uxml;
-        /// <summary>
-        /// Transform of player character/object that 
-        /// needs to be teleported to checkpoint
-        /// </summary>
-        [SerializeField] private Transform _player;
 
         private void OnCheckpointClick(ClickEvent evt)
         {
@@ -87,12 +82,19 @@ namespace Sharp.Tabs.Checkpoint
         /// </summary>
         private void JumpTo(Checkpoint cp)
         {
-            var cc = _player.GetComponent<CharacterController>();
+            var player = GameObject.FindWithTag("Player").transform;
+
+            var cc = player.GetComponent<CharacterController>();
             if (cc) cc.enabled = false;
 
-            _player.SetPositionAndRotation(cp.position, cp.rotation);
+            player.SetPositionAndRotation(cp.position, cp.rotation);
 
-            if (_player.TryGetComponent<Rigidbody>(out var rb))
+            if (player.TryGetComponent<ICheckpointReceiver>(out var icr))
+            {
+                icr.OnCheckpointStart(cp.gameObject);
+            }
+
+            if (player.TryGetComponent<Rigidbody>(out var rb))
             {
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
