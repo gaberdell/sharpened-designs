@@ -1,19 +1,14 @@
 using UnityEngine;
-<<<<<<< Updated upstream
-=======
 using UnityEngine.InputSystem;
->>>>>>> Stashed changes
 
 namespace Sharp
 {
     public class FreecamBehavior : MonoBehaviour
     {
-<<<<<<< Updated upstream
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
         
-=======
         [SerializeField]
         private Camera freemodeCamera;
 
@@ -30,15 +25,11 @@ namespace Sharp
 
             freemodeCamera.enabled = false;
             gameCamera.enabled = true;
->>>>>>> Stashed changes
         }
 
         // Update is called once per frame
         void Update()
         {
-<<<<<<< Updated upstream
-        
-=======
             if (Keyboard.current != null &&
              Keyboard.current[toggleKey].wasPressedThisFrame)
             {
@@ -75,7 +66,6 @@ namespace Sharp
 
                 Debug.Log("Freecam Disabled");
             }
->>>>>>> Stashed changes
         }
     }
 }
