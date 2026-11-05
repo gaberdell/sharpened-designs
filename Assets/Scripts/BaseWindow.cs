@@ -30,7 +30,6 @@ namespace Sharp
         protected override void Awake()
         {
             base.Awake();
-
             ui_document = GetComponent<UIDocument>();
 
             var window_ui_element = window_uxml.Instantiate();
@@ -56,6 +55,7 @@ namespace Sharp
             }
 
             window_tab_view.selectedTabIndex = 0;
+            ui_document.rootVisualElement.style.display = DisplayStyle.None;
         }
     }
 }
