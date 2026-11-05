@@ -18,12 +18,11 @@ namespace Sharp
         private bool _freecam_initialized = false;
         private Vector3 _input_vector;
 
-        public float CameraSensitivity = 0.1f;
-        public float SlowSpeed = 2f;
-        public float NormalSpeed = 5f; 
-        public float SprintSpeed = 8f;
+        public bool CamEnableState => _camera_enabled;
 
-        float CurrentSpeed;
+        public float CameraSensitivity = 0.1f;
+
+        public float CurrentSpeed = 5;
 
         private void Awake()
         {
@@ -51,62 +50,47 @@ namespace Sharp
             if (!_camera_enabled)
                 return;
 
-            if (Keyboard.current.leftShiftKey.isPressed)
-            {
-                CurrentSpeed = SprintSpeed;
-            }
-            else if (Keyboard.current.leftAltKey.isPressed)
-            {
-                CurrentSpeed = SlowSpeed;
-            }
-            else
-            {
-                CurrentSpeed = NormalSpeed;
-            }
-
             _freecamera.transform.Translate(_input_vector * CurrentSpeed * Time.deltaTime);
         }
 
-        /// <summary>
-        /// Enables/Disbales the Free Camera based on the key provided in the InputAction map.
-        /// </summary>
-        /// <param name="callback_context">The context provided to the callback function.</param>
-        public void OnEnableFreecam(InputAction.CallbackContext callback_context)
+
+        public void ToggleFreecam()
         {
-            if (callback_context.started)
-            {
-                _camera_enabled = !_camera_enabled;
-
-                Debug.Log("Freecamera " + _camera_enabled);
-
-                if (_camera_enabled)
-                {
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-
-                    _freecamera.enabled = true;
-                    main_camera.enabled = false;
-
-                    if (!_freecam_initialized)
-                    {
-                        _freecamera.transform.SetPositionAndRotation(
-                            main_camera.transform.position, main_camera.transform.rotation
-                        );
-
-                        _freecam_initialized = true;
-                    }
-                }
-                else
-                {
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-
-                    _freecamera.enabled = false;
-                    main_camera.enabled = true;
-                }
-            }
+            SetFreeCameraEnabled(!_camera_enabled);
         }
 
+        public void SetFreeCameraEnabled(bool enabled)
+        {
+            _camera_enabled = enabled;
+            
+            Debug.Log("Freecamera " + _camera_enabled);
+
+            if (_camera_enabled)
+            {
+                Cursor.visible = false;
+                // Cursor.lockState = CursorLockMode.Locked;
+
+                _freecamera.enabled = true;
+                main_camera.enabled = false;
+
+                if (!_freecam_initialized)
+                {
+                    _freecamera.transform.SetPositionAndRotation(
+                        main_camera.transform.position, main_camera.transform.rotation
+                    );
+
+                    _freecam_initialized = true;
+                }
+            }
+            else
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
+                _freecamera.enabled = false;
+                main_camera.enabled = true;
+            }
+        }
         /// <summary>
         ///  Handles mouse input for looking around on the Free Camera.
         /// </summary>

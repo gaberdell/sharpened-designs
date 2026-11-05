@@ -39,17 +39,6 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "e71b5438-4012-4a5f-9ebb-141abcf2b13b",
-                    "path": "<Keyboard>/backslash",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "EnableFreecam",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "3D Vector",
                     "id": "62633eee-e5bd-4f38-8ed1-5a32fa04a8fe",
                     "path": "3DVector",
