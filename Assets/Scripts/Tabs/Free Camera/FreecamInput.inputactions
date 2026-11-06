@@ -7,16 +7,6 @@
             "id": "a50ba081-5eaf-470c-b422-8a7ca2631702",
             "actions": [
                 {
-                    "name": "EnableFreecam",
-                    "type": "Button",
-                    "id": "141f0c59-35d4-421d-b2b8-b70c50eb41be",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
-                },
-                {
                     "name": "Movement",
                     "type": "Value",
                     "id": "f4a796f1-2aa1-45de-b8c9-0873da03f4be",
