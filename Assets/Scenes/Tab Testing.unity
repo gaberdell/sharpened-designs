@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 745452433}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -894,7 +894,6 @@ MonoBehaviour:
   _content_uxml: {fileID: 9197481963319205126, guid: 7b6059b42c748124ea5b078a3f7c0d63, type: 3}
   _title: Checkpoints
   _row_uxml: {fileID: 9197481963319205126, guid: 0ea7c1e500cb8e545a396fd0455511f1, type: 3}
-  _player: {fileID: 745452436}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
