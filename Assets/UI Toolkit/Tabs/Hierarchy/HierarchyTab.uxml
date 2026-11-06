@@ -2,5 +2,5 @@
     <Style src="project://database/Assets/UI%20Toolkit/Base/General.uss?fileID=7433441132597879392&amp;guid=c87551fefefdca4468929986027a873e&amp;type=3#General"/>
     <ui:Toggle label="Auto Update" name="AutoUpdate" text="Update Every Frame"/>
     <ui:Button text="Refresh" name="RefreshSceneHierarchy"/>
-    <ui:ScrollView name="HierarchyScrollView"/>
+    <ui:TreeView name="HierarchyTreeView"/>
 </ui:UXML>
