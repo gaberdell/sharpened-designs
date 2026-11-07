@@ -17,18 +17,18 @@ namespace Sharp.Core.UXML.TypedElements
             _value_type = _value_property.PropertyType;
         }
 
-        public override void SetValue(object value)
-        {
-            // Will throw on type mismatch.
-            _value_property.SetValue(visual_element, value);
-        }
-
         public override bool Supports(Type value_type)
         {
             return _value_type == value_type;
         }
 
-        internal override void SetType(Type value_type)
+        protected override void SetValue(object value, Type value_type)
+        {
+            // Will throw on type mismatch.
+            _value_property.SetValue(visual_element, value);
+        }
+
+        protected override void UpdateType(Type value_type)
         {
             // Nothing to do; we assume that the visual_element already takes
             // care of initializing data for its associated type

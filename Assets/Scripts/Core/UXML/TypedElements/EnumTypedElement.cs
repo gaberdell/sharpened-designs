@@ -17,11 +17,16 @@ namespace Sharp.Core.UXML.TypedElements
             : base(visual_element)
         {}
 
-        public override void SetValue(object value)
+        public override bool Supports(Type value_type)
+        {
+            return value_type.IsEnum;
+        }
+
+        protected override void SetValue(object value, Type value_type)
         {
             var index = _enum_values.IndexOf(Convert.ToInt32(value));
 
-            if(index == -1)
+            if (index == -1)
             {
                 // Fallback to the 'unknown' value we inserted as option zero
                 visual_element.index = UnknownIndex;
@@ -33,12 +38,7 @@ namespace Sharp.Core.UXML.TypedElements
             }
         }
 
-        public override bool Supports(Type value_type)
-        {
-            return value_type.IsEnum;
-        }
-
-        internal override void SetType(Type value_type)
+        protected override void UpdateType(Type value_type)
         {
             _enum_options = Enum.GetNames(value_type).ToList();
             _enum_options.Insert(UnknownIndex, "<Unknown>");

@@ -48,8 +48,7 @@ namespace Sharp.Core.UXML
 
         public void SetValue(object value)
         {
-            typed_element.InitializeForType(value.GetType());
-            typed_element.SetValue(value);
+            typed_element.TrySetValue(value);
         }
 
         public class TypedElement : AbstractTypedElement
@@ -62,17 +61,17 @@ namespace Sharp.Core.UXML
                 : base(visual_element)
             { }
 
-            public override void SetValue(object value)
-            {
-                _active_element.SetValue(value);
-            }
-
             public override bool Supports(Type value_type)
             {
                 return true;
             }
 
-            internal override void SetType(Type value_type)
+            protected override void SetValue(object value, Type value_type)
+            {
+                _active_element.TrySetValue(value, value_type);
+            }
+
+            protected override void UpdateType(Type value_type)
             {
                 // Find the first widget that supports the provided value type
                 _active_element = null;
@@ -81,9 +80,7 @@ namespace Sharp.Core.UXML
                 {
                     if (element.Supports(value_type))
                     {
-                        element.InitializeForType(value_type);
                         _active_element = element;
-
                         break;
                     }
                 }
