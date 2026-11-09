@@ -37,14 +37,14 @@ namespace Sharp.Tabs.Checkpoint
         protected override void OnInstantiateVisualElement()
         {
             _list = root_ui_element.Q<ListView>("checkpoint-list");
-            _list.itemsSource = (IList)CheckpointManager.checkpoints;
+            _list.itemsSource = (IList)CheckpointManager.Instance.checkpoints;
             _list.fixedItemHeight = 48;
             _list.selectionType = SelectionType.None;
 
             _list.makeItem = () => _row_uxml.Instantiate();
             _list.bindItem = (element, i) =>
             {
-                var cp = CheckpointManager.checkpoints[i];
+                var cp = CheckpointManager.Instance.checkpoints[i];
                 element.Q<Label>("description").text = cp.description;
 
                 var btn = element.Q<Button>("jump");
@@ -58,7 +58,7 @@ namespace Sharp.Tabs.Checkpoint
                 btn.UnregisterAllRemovableCallbacks();
             };
 
-            CheckpointManager.changed += Refresh;
+            CheckpointManager.Instance.changed += Refresh;
             Refresh();
         }
 
@@ -74,7 +74,7 @@ namespace Sharp.Tabs.Checkpoint
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            CheckpointManager.changed -= Refresh;
+            CheckpointManager.Instance.changed -= Refresh;
         }
 
         /// <summary>

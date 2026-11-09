@@ -10,32 +10,32 @@ namespace Sharp.Tabs.Checkpoint
     /// Handles communication between individual checkpoint objects 
     /// and checkpoint tab ui.
     /// </summary>
-    public static class CheckpointManager
+    public class CheckpointManager
     {
         /// <summary>
         /// A list of all checkpoints in the scene.
         /// Can add or remove from list but cannot set to a new list 
         /// </summary>
-        private static readonly List<Checkpoint> _checkpoints = new();
+        private readonly List<Checkpoint> _checkpoints = new();
         /// <summary>
         /// The same list as above but with more limited access
         /// Cannot add or remove from the public version, 
         /// only read/access the data
         /// </summary>
-        public static IReadOnlyList<Checkpoint> checkpoints => _checkpoints;
+        public IReadOnlyList<Checkpoint> checkpoints => _checkpoints;
 
         /// <summary>
         /// A delegate that allows for the UI tab to be 
         /// updated whenever a checkpoint is added or removed
         /// </summary>
-        public static event Action changed;
+        public event Action changed;
 
         /// <summary>
         /// The function to add a newly created checkpoint
         /// object to the list if and only if it does not 
         /// currently exist in the list
         /// </summary>
-        public static void Register(Checkpoint c)
+        public void Register(Checkpoint c)
         {
             if (_checkpoints.Contains(c)) return;
 
@@ -46,7 +46,7 @@ namespace Sharp.Tabs.Checkpoint
         /// <summary>
         /// The function to remove a checkpoint object from the list
         /// </summary>
-        public static void Unregister(Checkpoint c)
+        public void Unregister(Checkpoint c)
         {
             if (_checkpoints.Remove(c))
             {
@@ -60,8 +60,10 @@ namespace Sharp.Tabs.Checkpoint
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void Reset()
         {
-            _checkpoints.Clear();
-            changed = null;
+            Instance._checkpoints.Clear();
+            Instance.changed = null;
         }
+
+        public static CheckpointManager Instance { get; } = new();
     }
 }

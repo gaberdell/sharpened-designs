@@ -30,8 +30,9 @@ namespace Sharp
             _inputs.Enable();
         }
 
-        protected void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             _inputs.Disable();
         }
 

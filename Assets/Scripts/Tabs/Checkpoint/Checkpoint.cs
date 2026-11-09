@@ -1,3 +1,4 @@
+using Sharp.Core;
 using UnityEngine;
 
 namespace Sharp.Tabs.Checkpoint
@@ -6,7 +7,7 @@ namespace Sharp.Tabs.Checkpoint
     /// Implementation for a singular checkpoint.
     /// Stores all necessary information and communicates with CheckpointManager.
     /// </summary>
-    public class Checkpoint : MonoBehaviour
+    public class Checkpoint : BaseSharpBehaviour
     {
         /// <summary>
         /// The name for the checkpoint that 
@@ -49,10 +50,19 @@ namespace Sharp.Tabs.Checkpoint
         /// <summary>
         /// Adding the checkpoint to the overall manager list
         /// </summary>
-        private void OnEnable() => CheckpointManager.Register(this);
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            CheckpointManager.Instance.Register(this);
+        }
+
         /// <summary>
         /// Removing the checkpoint from the overall manager list
         /// </summary>
-        private void OnDisable() => CheckpointManager.Unregister(this);
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            CheckpointManager.Instance.Unregister(this);
+        }
     }
 }
