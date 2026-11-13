@@ -1,0 +1,46 @@
+<ui:UXML 
+    xmlns:ui="UnityEngine.UIElements"
+    editor-extension-mode = "False">
+
+    <Style src="project://database/Assets/UI%20Toolkit/Base/General.uss"/>
+
+    <ui:VisualElement style = "flex-grow: 1;">
+
+        <ui:Label
+            text="Free Camera"
+            style="font-size: 18px; margin-bottom: 8px;" />
+
+        <ui:Button
+            name="toggle-freecam"
+            text="Enable Free Camera Mode"
+            focusable="false" />
+
+        <ui:Slider
+            name="sensitivity"
+            label="Adjust Look Sensitivity"
+            low-value="0.01"
+            high-value="1"
+            value="0.1"
+            show-input-field="false"
+            focusable="false" />
+
+        <ui:Slider
+            name="move-speed"
+            label="Adjust Movement Speed"
+            low-value="1"
+            high-value="10"
+            value="5"
+            show-input-field="false"
+            focusable="false" />
+
+        <ui:Image
+            name="controls"
+            style="
+                width: 500px; 
+                height: 300px; 
+                margin-top: 15px;
+                --unity-image: url('project://database/Assets/UI%20Toolkit/Tabs/Free%20Camera/controls.png')
+                --unity-image-size: contain;" />
+                
+    </ui:VisualElement>
+</ui:UXML>

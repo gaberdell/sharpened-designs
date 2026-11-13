@@ -19,6 +19,11 @@ namespace Sharp.Core
             // Implement common base behaviour here //
         }
 
+        protected virtual void OnDisable()
+        {
+            // Implement common base behaviour here //
+        }
+
         protected virtual void OnDestroy()
         {
             // Implement common base behaviour here //

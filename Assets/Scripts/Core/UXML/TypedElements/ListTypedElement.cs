@@ -19,14 +19,8 @@ namespace Sharp.Core.UXML.TypedElements
 
                 var value = visual_element.itemsSource[index];
 
-                typed_element.InitializeForType(value.GetType());
-                typed_element.SetValue(value);
+                typed_element.TrySetValue(value);
             };
-        }
-
-        public override void SetValue(object value)
-        {
-            visual_element.itemsSource = value as IList;
         }
 
         public override bool Supports(Type value_type)
@@ -34,7 +28,12 @@ namespace Sharp.Core.UXML.TypedElements
             return typeof(IList).IsAssignableFrom(value_type);
         }
 
-        internal override void SetType(Type value_type)
+        protected override void SetValue(object value, Type value_type)
+        {
+            visual_element.itemsSource = value as IList;
+        }
+
+        protected override void UpdateType(Type value_type)
         {
             // Nothing to do here; we only care about the concrete type once
             // we get to binding an actual value.

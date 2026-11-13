@@ -23,11 +23,6 @@ namespace Sharp.Tabs.Checkpoint
         /// and ability to jump to checkpoint
         /// </summary>
         [SerializeField] private VisualTreeAsset _row_uxml;
-        /// <summary>
-        /// Transform of player character/object that 
-        /// needs to be teleported to checkpoint
-        /// </summary>
-        [SerializeField] private Transform _player;
 
         private void OnCheckpointClick(ClickEvent evt)
         {
@@ -42,14 +37,14 @@ namespace Sharp.Tabs.Checkpoint
         protected override void OnInstantiateVisualElement()
         {
             _list = root_ui_element.Q<ListView>("checkpoint-list");
-            _list.itemsSource = (IList)CheckpointManager.checkpoints;
+            _list.itemsSource = (IList)CheckpointManager.Instance.checkpoints;
             _list.fixedItemHeight = 48;
             _list.selectionType = SelectionType.None;
 
             _list.makeItem = () => _row_uxml.Instantiate();
             _list.bindItem = (element, i) =>
             {
-                var cp = CheckpointManager.checkpoints[i];
+                var cp = CheckpointManager.Instance.checkpoints[i];
                 element.Q<Label>("description").text = cp.description;
 
                 var btn = element.Q<Button>("jump");
@@ -63,7 +58,7 @@ namespace Sharp.Tabs.Checkpoint
                 btn.UnregisterAllRemovableCallbacks();
             };
 
-            CheckpointManager.changed += Refresh;
+            CheckpointManager.Instance.changed += Refresh;
             Refresh();
         }
 
@@ -79,7 +74,7 @@ namespace Sharp.Tabs.Checkpoint
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            CheckpointManager.changed -= Refresh;
+            CheckpointManager.Instance.changed -= Refresh;
         }
 
         /// <summary>
@@ -87,12 +82,19 @@ namespace Sharp.Tabs.Checkpoint
         /// </summary>
         private void JumpTo(Checkpoint cp)
         {
-            var cc = _player.GetComponent<CharacterController>();
+            var player = GameObject.FindWithTag("Player").transform;
+
+            var cc = player.GetComponent<CharacterController>();
             if (cc) cc.enabled = false;
 
-            _player.SetPositionAndRotation(cp.position, cp.rotation);
+            player.SetPositionAndRotation(cp.position, cp.rotation);
 
-            if (_player.TryGetComponent<Rigidbody>(out var rb))
+            if (player.TryGetComponent<ICheckpointReceiver>(out var icr))
+            {
+                icr.OnCheckpointStart(cp.gameObject);
+            }
+
+            if (player.TryGetComponent<Rigidbody>(out var rb))
             {
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
