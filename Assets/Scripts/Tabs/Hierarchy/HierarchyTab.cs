@@ -10,20 +10,20 @@ namespace Sharp.Tabs.Hierarchy
 {
     public class HierarchyTab : AbstractTab 
     {
-        public Label tabName;
-        public TreeView hierarchyTreeView;
-        public Toggle autoUpdate;
-        public Button refreshButton;
-
-        public List<TreeViewItemData<Object>> treeViewData = new List<TreeViewItemData<Object>>(10);
-
-        public Object selectedObject { get; private set; }
-
-        public bool IsAutoUpdating { get; private set; }
-
+        private List<TreeViewItemData<Object>> tree_view_data = new List<TreeViewItemData<Object>>(10);
         private int id = 0;
 
-        private List<TreeViewItemData<Object>> RecursiveBuild(GameObject gO) {
+        public Label tab_name;
+        public TreeView hierarchy_tree_view;
+        public Toggle auto_update;
+        public Button refresh_button;
+
+
+        public Object selected_object { get; private set; }
+        public bool is_auto_updating { get; private set; }
+
+
+        private List<TreeViewItemData<Object>> DoRecursiveBuild(GameObject gO) {
             //HierarchyFoldout ourNewFoldeout = new HierarchyFoldout();
             List <TreeViewItemData<Object>> returnList = new List<TreeViewItemData<Object>>();
 
@@ -37,7 +37,7 @@ namespace Sharp.Tabs.Hierarchy
             }
             Transform trans = gO.transform;
             for (int i = 0; i < trans.childCount; i++) {
-                returnList.Add(new TreeViewItemData<Object>(++id, trans.GetChild(i).gameObject, RecursiveBuild(trans.GetChild(i).gameObject)));
+                returnList.Add(new TreeViewItemData<Object>(++id, trans.GetChild(i).gameObject, DoRecursiveBuild(trans.GetChild(i).gameObject)));
             }
 
             return returnList;
@@ -46,41 +46,41 @@ namespace Sharp.Tabs.Hierarchy
         private void BuildSceneTree() {
             id = 0;
             List<TreeViewItemData<Object>> listOfStuff = new List<TreeViewItemData<Object>>();
-            treeViewData.Clear();
+            tree_view_data.Clear();
 
             Scene getCurrentScene = SceneManager.GetActiveScene();
             foreach (GameObject gO in getCurrentScene.GetRootGameObjects()) {
-                treeViewData.Add(new TreeViewItemData<Object>());
-                listOfStuff.Add(new TreeViewItemData<Object>(++id, gO, RecursiveBuild(gO)));
+                tree_view_data.Add(new TreeViewItemData<Object>());
+                listOfStuff.Add(new TreeViewItemData<Object>(++id, gO, DoRecursiveBuild(gO)));
             }
 
-            hierarchyTreeView.SetRootItems(listOfStuff);
-            hierarchyTreeView.Rebuild();
+            hierarchy_tree_view.SetRootItems(listOfStuff);
+            hierarchy_tree_view.RefreshItems();
         }
 
         protected override void OnInstantiateVisualElement() {
-            tabName = root_ui_element.Q<Label>("ExampleNumber");
-            hierarchyTreeView = root_ui_element.Q<TreeView>("HierarchyTreeView");
-            autoUpdate = root_ui_element.Q<Toggle>("AutoUpdate");
-            refreshButton = root_ui_element.Q<Button>("RefreshSceneHierarchy");
+            tab_name = root_ui_element.Q<Label>("ExampleNumber");
+            hierarchy_tree_view = root_ui_element.Q<TreeView>("HierarchyTreeView");
+            auto_update = root_ui_element.Q<Toggle>("AutoUpdate");
+            refresh_button = root_ui_element.Q<Button>("RefreshSceneHierarchy");
 
-            autoUpdate.RegisterCallback<ChangeEvent<bool>>((evt) => { IsAutoUpdating = evt.newValue; });
-            refreshButton.RegisterCallback<ClickEvent>((evt) => { BuildSceneTree(); });
+            auto_update.RegisterCallback<ChangeEvent<bool>>((evt) => { is_auto_updating = evt.newValue; });
+            refresh_button.RegisterCallback<ClickEvent>((evt) => { BuildSceneTree(); });
 
-            hierarchyTreeView.makeItem = () => new HierarchyComponent();
+            hierarchy_tree_view.makeItem = () => new HierarchyComponent();
 
             Action<VisualElement, int> bindItem = (e, i) =>
             {
-                var item = hierarchyTreeView.GetItemDataForIndex<Object>(i);
+                var item = hierarchy_tree_view.GetItemDataForIndex<Object>(i);
                 ((HierarchyComponent)e).label.text = (item is GameObject) ? item.name : item.GetType().Name;
             };
 
-            hierarchyTreeView.bindItem = bindItem;
+            hierarchy_tree_view.bindItem = bindItem;
 
-            hierarchyTreeView.selectedIndicesChanged += (selectedType) =>
+            hierarchy_tree_view.selectedIndicesChanged += (selectedType) =>
             {
                 int firstSelected = selectedType.First();
-                selectedObject = hierarchyTreeView.GetItemDataForIndex<Object>(firstSelected);
+                selected_object = hierarchy_tree_view.GetItemDataForIndex<Object>(firstSelected);
             };
 
             BuildSceneTree();
@@ -88,7 +88,7 @@ namespace Sharp.Tabs.Hierarchy
 
         private void Update() {
             //Terribly laggy change to something more performenent
-            if (IsAutoUpdating) {
+            if (is_auto_updating) {
                 BuildSceneTree();
             }
         }
