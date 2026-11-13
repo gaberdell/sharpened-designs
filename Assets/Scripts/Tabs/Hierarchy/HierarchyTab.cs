@@ -79,8 +79,13 @@ namespace Sharp.Tabs.Hierarchy
 
             hierarchy_tree_view.selectedIndicesChanged += (selectedType) =>
             {
-                int firstSelected = selectedType.First();
-                selected_object = hierarchy_tree_view.GetItemDataForIndex<Object>(firstSelected);
+                if (selectedType == null || selectedType.Count() == 0) {
+                    selected_object = null;
+                }
+                else {
+                    int firstSelected = selectedType.First();
+                    selected_object = hierarchy_tree_view.GetItemDataForIndex<Object>(firstSelected);
+                }
             };
 
             BuildSceneTree();
