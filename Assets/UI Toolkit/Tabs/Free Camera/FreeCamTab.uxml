@@ -33,5 +33,14 @@
             show-input-field="false"
             focusable="false" />
 
+        <ui:Image
+            name="controls"
+            style="
+                width: 500px; 
+                height: 300px; 
+                margin-top: 15px;
+                --unity-image: url('project://database/Assets/UI%20Toolkit/Tabs/Free%20Camera/controls.png')
+                --unity-image-size: contain;" />
+                
     </ui:VisualElement>
 </ui:UXML>

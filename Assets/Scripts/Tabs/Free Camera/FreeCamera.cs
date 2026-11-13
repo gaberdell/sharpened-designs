@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,7 @@ namespace Sharp
 
         private bool _camera_enabled = false;
         private bool _freecam_initialized = false;
+        private bool _paused_cam = false;
         private Vector3 _input_vector;
 
         public bool CamEnableState => _camera_enabled;
@@ -50,9 +52,33 @@ namespace Sharp
             if (!_camera_enabled)
                 return;
 
+            if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
+                {
+                    TogglePause();
+                    return;
+                }
+
+            if (_paused_cam)
+                return;
+
             _freecamera.transform.Translate(_input_vector * CurrentSpeed * Time.deltaTime);
         }
 
+        public void TogglePause()
+        {
+            _paused_cam = !_paused_cam;
+
+            if (_paused_cam)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked; 
+            }
+        }
 
         public void ToggleFreecam()
         {
@@ -68,7 +94,7 @@ namespace Sharp
             if (_camera_enabled)
             {
                 Cursor.visible = false;
-                // Cursor.lockState = CursorLockMode.Locked;
+                Cursor.lockState = CursorLockMode.Locked;
 
                 _freecamera.enabled = true;
                 main_camera.enabled = false;
@@ -97,7 +123,7 @@ namespace Sharp
         /// <param name="callback_context">The context provided to the callback function.</param>
         public void OnRotation(InputAction.CallbackContext callback_context)
         {
-            if (!_camera_enabled)
+            if (!_camera_enabled || _paused_cam)
                 return;
 
             Vector2 MouseInput = callback_context.ReadValue<Vector2>();
@@ -114,7 +140,7 @@ namespace Sharp
         /// <param name="callback_context">The context provided to the callback function.</param>
         public void OnMovement(InputAction.CallbackContext callback_context)
         {
-            if (!_camera_enabled) 
+            if (!_camera_enabled || _paused_cam) 
                 return;
             _input_vector = callback_context.ReadValue<Vector3>();
         }

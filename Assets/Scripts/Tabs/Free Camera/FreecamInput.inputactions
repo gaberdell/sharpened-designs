@@ -42,7 +42,7 @@
                 {
                     "name": "Up",
                     "id": "6ef955c5-f09c-4391-a8d7-c976ecfce3ba",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -53,7 +53,7 @@
                 {
                     "name": "Down",
                     "id": "938845a1-7586-41f0-9f27-4109f0dcb0c1",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
