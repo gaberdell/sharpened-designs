@@ -59,7 +59,7 @@ namespace Sharp.Tabs.Console
                 }
             }
 
-            _entries.Rebuild();
+            _entries.RefreshItems();
         }
 
         private void OnNoteToggleClick(ChangeEvent<bool> evt)
