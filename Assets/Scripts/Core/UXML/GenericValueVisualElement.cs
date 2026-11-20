@@ -68,7 +68,7 @@ namespace Sharp.Core.UXML
 
             protected override void SetValue(object value, Type value_type)
             {
-                _active_element.TrySetValue(value, value_type);
+                _active_element?.TrySetValue(value, value_type);
             }
 
             protected override void UpdateType(Type value_type)

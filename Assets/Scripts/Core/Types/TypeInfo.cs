@@ -12,6 +12,8 @@ namespace Sharp.Core.Types
     /// <param name="type">The type that is wrapped.</param>
     /// <param name="instance_fields">The fields defined by the type non-statically.</param>
     /// <param name="static_fields">The fields defined by the type statically.</param>
+    /// <param name="instance_properties">The properties defined by the type non-statically.</param>
+    /// <param name="static_properties">The properties defined by the type statically.</param>
     /// <param name="instance_methods">The methods defined by the type non-statically.</param>
     /// <param name="static_methods">The methods defined by the type statically.</param>
     public record TypeInfo(
@@ -19,6 +21,8 @@ namespace Sharp.Core.Types
         TypeInfo base_info,
         IReadOnlyList<AttributedMember<FieldInfo>> instance_fields,
         IReadOnlyList<AttributedMember<FieldInfo>> static_fields,
+        IReadOnlyList<AttributedMember<PropertyInfo>> instance_properties,
+        IReadOnlyList<AttributedMember<PropertyInfo>> static_properties,
         IReadOnlyList<AttributedMember<MethodInfo>> instance_methods,
         IReadOnlyList<AttributedMember<MethodInfo>> static_methods);
 }

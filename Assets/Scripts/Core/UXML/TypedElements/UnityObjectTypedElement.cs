@@ -41,17 +41,17 @@ namespace Sharp.Core.UXML.TypedElements
 
         protected override void SetValue(object value, Type value_type)
         {
-            var text_value = "";
+            var text_value = "null";
 
-            if (value is GameObject game_object)
+            if (value is GameObject game_object && game_object)
             {
                 text_value = GameObjectToString(game_object);
             }
-            else if (value is Component component)
+            else if (value is Component component && component)
             {
                 text_value = GameObjectToString(component.gameObject);
             }
-            else if (value is UnityEngine.Object uobject)
+            else if (value is UnityEngine.Object uobject && uobject)
             {
                 text_value = uobject.name;
             }

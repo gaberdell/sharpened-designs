@@ -44,7 +44,7 @@ namespace Sharp.Core.UXML.TypedElements
             _enum_options.Insert(UnknownIndex, "<Unknown>");
 
             _enum_values = Enumerable.ToList(
-                from e in Enum.GetValues(value_type) as object[] 
+                from e in Enum.GetValues(value_type).Cast<object>()
                 select Convert.ToInt32(e));
 
             visual_element.choices = _enum_options;

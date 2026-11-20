@@ -29,6 +29,12 @@ namespace Sharp.Core.Types
                     from field in type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                     select AttributedMember.From(field)),
                 Enumerable.ToList(
+                    from field in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                    select AttributedMember.From(field)),
+                Enumerable.ToList(
+                    from field in type.GetProperties(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                    select AttributedMember.From(field)),
+                Enumerable.ToList(
                     from field in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                     select AttributedMember.From(field)),
                 Enumerable.ToList(
