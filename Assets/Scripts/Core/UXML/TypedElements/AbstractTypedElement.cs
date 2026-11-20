@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Sharp.Core.UXML.TypedElements
@@ -7,6 +8,7 @@ namespace Sharp.Core.UXML.TypedElements
     {
         public VisualElement visual_element { get; }
         private Type last_set_value_type;
+        protected object last_set_value { get; private set; }
 
         public AbstractTypedElement(VisualElement visual_element)
         {
@@ -18,9 +20,19 @@ namespace Sharp.Core.UXML.TypedElements
             value_type ??= value?.GetType();
             var shown = Supports(value_type);
 
+            // Optimization; only update value if it has changed //
+            if (object.Equals(last_set_value, value))
+            {
+                return shown;
+            }
+
             if (shown)
             {
-                visual_element.style.display = DisplayStyle.Flex;
+                // Optimization; only update style if needed //
+                if (visual_element.style.display != DisplayStyle.Flex)
+                {
+                    visual_element.style.display = DisplayStyle.Flex;
+                }
 
                 if(last_set_value_type != value_type)
                 {
@@ -34,9 +46,14 @@ namespace Sharp.Core.UXML.TypedElements
             }
             else
             {
-                visual_element.style.display = DisplayStyle.None;
+                // Optimization; only update style if needed //
+                if (visual_element.style.display != DisplayStyle.None)
+                {
+                    visual_element.style.display = DisplayStyle.None;
+                }
             }
 
+            last_set_value = value;
             return shown;
         }
 

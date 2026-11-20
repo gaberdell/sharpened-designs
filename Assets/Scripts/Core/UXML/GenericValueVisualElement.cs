@@ -6,12 +6,20 @@ using UnityEngine.UIElements;
 namespace Sharp.Core.UXML
 {
     /// <summary>
-    /// The UXML element that is used to render information about a single entry
-    /// in the console view. Structure is elemented by 'UI Toolkit/Tabs/Console/Resources/ConsoleEntry.uxml'.
+    /// The UXML element that is used to render information about some arbitrarily typed value.
+    /// 
+    /// <para>
+    /// It is worth noting that this class' methodology of hiding unneeded UI elements
+    /// is quite harsh on the garbage collector and on the UI layouting engine.
+    /// 
+    /// In the future, this implementation should be replaced with one that only instantiates
+    /// the relevant visual elements and deletes the rest.
+    /// </para>
     /// </summary>
     [UxmlElement]
     public partial class GenericValueVisualElement : VisualElement
     {
+
         private readonly VisualElement _unsupported;
         private readonly AbstractTypedElement[] _contained_typed_elements;
 
@@ -46,11 +54,20 @@ namespace Sharp.Core.UXML
             typed_element = new TypedElement(this);
         }
 
-        public void SetValue(object value)
+        public void SetValue(object value, Type expected_value_type)
         {
-            typed_element.TrySetValue(value);
+            if(value != null)
+            {
+                expected_value_type = value.GetType();
+            }
+
+            typed_element.TrySetValue(value, expected_value_type);
         }
 
+        /// <summary>
+        /// The <see cref="AbstractTypedElement"/> subclass which underlies every <see cref="GenericValueVisualElement"/>.
+        /// Also used when a nested typed element needs to refer to a value with unknown type.
+        /// </summary>
         public class TypedElement : AbstractTypedElement
         {
             private AbstractTypedElement _active_element;

@@ -108,6 +108,8 @@ namespace Sharp.Tabs.Hierarchy
 
             _hierarchy_tree.selectedIndicesChanged += (new_selection) =>
             {
+                var original_selection = selected_object;
+
                 if (new_selection.Any())
                 {
                     var first_selected = new_selection.First();
@@ -118,7 +120,10 @@ namespace Sharp.Tabs.Hierarchy
                     selected_object = null;
                 }
 
-                selection_changed?.Invoke();
+                if (original_selection != selected_object)
+                {
+                    selection_changed?.Invoke();
+                }
             };
 
             BuildSceneTree();

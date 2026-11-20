@@ -1,4 +1,5 @@
 using Sharp.Core;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sharp.Tabs.Checkpoint
@@ -19,6 +20,8 @@ namespace Sharp.Tabs.Checkpoint
         /// the user wants to see in UI tab
         /// </summary>
         [SerializeField, TextArea] private string _description = "The test checkpoint";
+
+        public List<int> XKJASD = new() { 1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 12, 2, 36, 5, 5 };
 
         /// <summary>
         /// Returns the checkpoint name

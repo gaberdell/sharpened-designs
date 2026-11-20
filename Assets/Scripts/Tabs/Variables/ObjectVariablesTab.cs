@@ -10,15 +10,28 @@ namespace Sharp.Tabs.Variables
 {
     public class ObjectVariablesTab : ObjectSpecificTab
     {
+        /// <summary>
+        /// The list view that stores all variable entries.
+        /// Bound to <see cref="_variable_entries"/>.
+        /// </summary>
         private ListView _variable_list;
+        /// <summary>
+        /// A label shown when no component is selected.
+        /// </summary>
         private Label _select_component_label;
 
+        /// <summary>
+        /// Storage for the variables currently being displayed by the variables ui.
+        /// Cached so that the ui need not be rebuilt each frame.
+        /// </summary>
         private List<VariableEntry> _variable_entries = new();
 
         public override void OnSelectedObjectChanged()
         {
+            // Clear out previous variables //
             _variable_entries.Clear();
 
+            // Only display variables for valid components //
             if (selected_object is Component component && component)
             {
                 var type = selected_object.GetType();
@@ -57,7 +70,13 @@ namespace Sharp.Tabs.Variables
                         continue;
                     }
 
-                    // Skip properties defined on the base component type (often stuff like 'camera' or 'transform', which are undesirable) //
+                    // Skip properties that return by reference, since we cannot call .GetValue(...) on them //
+                    if(property.member.PropertyType.IsByRef)
+                    {
+                        continue;
+                    }
+
+                    // Skip properties defined on base unity types; often stuff like 'camera' or 'transform', which are not relevant for our ui //
                     if(property.member.DeclaringType == typeof(Component) 
                         || property.member.DeclaringType == typeof(UnityEngine.Object)
                         || property.member.DeclaringType == typeof(Behaviour)
@@ -97,6 +116,9 @@ namespace Sharp.Tabs.Variables
                 var element = e as VariableElement;
                 element.BindEntry(_variable_entries[index]);
             };
+
+            _variable_list.style.display = DisplayStyle.None;
+            _select_component_label.style.display = DisplayStyle.Flex;
         }
     }
 }

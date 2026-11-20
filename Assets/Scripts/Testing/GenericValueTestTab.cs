@@ -31,7 +31,7 @@ namespace Sharp.Testing
                 var test_ui = new GenericValueVisualElement();
                 root_ui_element.Add(test_ui);
 
-                test_ui.SetValue(test);
+                test_ui.SetValue(test, test.GetType());
             }
         }
     }
