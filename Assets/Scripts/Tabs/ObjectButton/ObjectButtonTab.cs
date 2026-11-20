@@ -11,46 +11,38 @@ using Unity.VisualScripting;
 
 namespace Sharp.Tabs.ObjectButton
 {
-    public class ObjectButtonTab : AbstractTab 
-    {
-        private HierarchyTab _hierarchy_tab;
+    public class ObjectButtonTab : ObjectSpecificTab {
         private Label _selected_object_label;
         private VisualElement _scroll_view_content;
 
 
         private List<ObjectButtonComponent> _call_method_buttons = new();
 
-
-
-        private void BindNewMethod() {
+        public override void OnSelectedObjectChanged() {
             foreach (var cMButton in _call_method_buttons) {
                 _scroll_view_content.Remove(cMButton);
             }
             _call_method_buttons.Clear();
 
-            var selectedObject = _hierarchy_tab.selected_object;
-            _selected_object_label.text = selectedObject.name;
-            MethodInfo[] mInfoArray = selectedObject.GetType().GetMethods();
+            _selected_object_label.text = selected_object.name;
+            MethodInfo[] mInfoArray = selected_object.GetType().GetMethods();
 
             foreach (var mi in mInfoArray) {
-                var newAddButton = new ObjectButtonComponent();
-                newAddButton.label.text = mi.Name;
-                newAddButton.button.RegisterCallback<ClickEvent>((evt) => { mi.Invoke(selectedObject, null); });
-                _call_method_buttons.Add(newAddButton);
+                var sBA = Attribute.GetCustomAttribute(mi, typeof(SharpButtonAttribute));
+                if (sBA != null) {
+                    var newAddButton = new ObjectButtonComponent();
+                    newAddButton.label.text = mi.Name;
+                    newAddButton.button.RegisterCallback<ClickEvent>((evt) => { mi.Invoke(selected_object, null); });
+                    _scroll_view_content.Add(newAddButton);
+                    _call_method_buttons.Add(newAddButton);
+                }
             }
-
-
-            
         }
 
         protected override void OnInstantiateVisualElement() 
         {
             _selected_object_label = root_ui_element.Q<Label>("SelectedObjectName");
-            _scroll_view_content = root_ui_element.Q<VisualElement>("CallMethodButton");
-
-            _hierarchy_tab = FindFirstObjectByType<HierarchyTab>();
-
+            _scroll_view_content = root_ui_element.Q<VisualElement>("unity-content-container");
         }
-
     }
 }
