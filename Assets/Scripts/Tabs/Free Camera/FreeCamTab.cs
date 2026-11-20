@@ -4,7 +4,11 @@ using UnityEngine.UIElements;
 
 namespace Sharp.Tabs.FreeCamTab
 {
-    public class FreeCamTab:AbstractTab
+    /// <summary>
+    /// Implementation of the Freecamera Tab. Connects to the Freecamera script in order to manage
+    /// the current camera speed, sensitivity as well as toggle its state.
+    /// </summary>
+    public class FreeCamTab : AbstractTab
     {
         [SerializeField] private Sharp.FreeCamera _freecamera;
 
@@ -34,6 +38,9 @@ namespace Sharp.Tabs.FreeCamTab
             });
         }
 
+        /// <summary>
+        /// Used to toggle the Freecamera's current state. Can only be On/Off.
+        /// </summary>
         private void CamToggle()
         {
             _freecamera.ToggleFreecam();
