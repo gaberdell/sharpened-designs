@@ -30,6 +30,7 @@ TemplateContainer {
 
 .unity-label {
     color: var(--sharp-colors-default-text);
+    width: auto;
 }
 
 .unity-label:focus {
@@ -167,4 +168,7 @@ TemplateContainer {
 
 .unity-scroller--horizontal .unity-base-slider__dragger {
     height: 6px;
+}
+
+.unity-vector3-field {
 }
