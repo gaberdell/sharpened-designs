@@ -6,7 +6,8 @@ namespace Sharp
     public class SimpleModificationsTab : ObjectSpecificTab
 
         /// <summary>
-        /// Implementation of the Object Specific Tab.
+        /// Implementation of the Simple Modifications Tab. Handles functions that can be applied to objects
+        /// that are selected in the Hierarchy tab.
         /// </summary>
     {
         private Toggle toggle_object;
